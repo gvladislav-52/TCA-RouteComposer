@@ -10,7 +10,7 @@ import RouteComposer
 import ComposableArchitecture
 
 struct ProfileView: View, ContextChecking {
-    let store: StoreOf<ProfileFeature>
+    var store: StoreOf<ProfileFeature>
     
     func isTarget(for context: Any?) -> Bool {
         return true
@@ -18,10 +18,40 @@ struct ProfileView: View, ContextChecking {
     typealias Context = Any?
     
     var body: some View {
-        VStack {
-            Text("Profile screen")
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            VStack(spacing: 20) {
+                Text("Profile screen")
+                    .font(.title)
+                
+                TextField(
+                    "Username",
+                    text: viewStore.binding(
+                        get: \.username,
+                        send: ProfileFeature.Action.userNameChanged
+                    )
+                )
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+                
+                Text("Current username: \(viewStore.username)")
+                    .foregroundColor(.gray)
+                
+                TextField(
+                    "Status",
+                    text: viewStore.binding(
+                        get: \.status,
+                        send: ProfileFeature.Action.statusChanged
+                    )
+                )
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+                
+                Spacer()
+            }
+            .navigationTitle("Profile")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.yellow)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.yellow)
     }
 }
+

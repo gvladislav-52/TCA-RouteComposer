@@ -17,7 +17,13 @@ struct HomeFactory: Factory {
     typealias Context = Any?
 
     func build(with context: Context = nil) throws -> ViewController {
-        UIHostingController(rootView: build(with: context))
+        let hostingController = UIHostingController(rootView: build(with: context))
+        hostingController.tabBarItem = UITabBarItem(
+            title: "Home",
+            image: UIImage(systemName: "house"),
+            selectedImage: UIImage(systemName: "house.fill")
+        )
+        return hostingController
     }
 
     func build(with context: Context = nil) -> ContentView {

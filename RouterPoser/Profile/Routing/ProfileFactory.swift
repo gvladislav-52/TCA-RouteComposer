@@ -15,9 +15,15 @@ struct ProfileFactory: Factory {
     typealias Feature = ProfileFeature
     typealias ViewController = UIHostingController<ContentView>
     typealias Context = Any?
-
+    
     func build(with context: Context = nil) throws -> ViewController {
-        UIHostingController(rootView: build(with: context))
+        let hostingController = UIHostingController(rootView: build(with: context))
+        hostingController.tabBarItem = UITabBarItem(
+            title: "Profile",
+            image: UIImage(systemName: "person.circle"),
+            selectedImage: UIImage(systemName: "person.circle.fill")
+        )
+        return hostingController
     }
 
     func build(with context: Context = nil) -> ContentView {

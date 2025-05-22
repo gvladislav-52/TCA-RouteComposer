@@ -18,7 +18,7 @@ enum HomeRouting {
             finder: UIHostingControllerWithContextFinder<HomeFactory.ContentView>(),
             factory: HomeFactory()
         )
-        .using(GeneralAction.replaceRoot(animationOptions: .transitionCrossDissolve))
+        .using(GeneralAction.replaceRoot(animationOptions: .allowAnimatedContent))
         .from(GeneralStep.root())
         .assemble()
         .unsafelyRewrapped()

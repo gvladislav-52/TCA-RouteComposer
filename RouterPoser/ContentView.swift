@@ -7,20 +7,32 @@
 
 import SwiftUI
 import ComposableArchitecture
+import RouteComposer
 
 struct ContentView: View {
     var body: some View {
-        AuthView(store:
-            Store(
-                initialState: AuthFeature.State(),
-                reducer: {
-                    AuthFeature()
-                }
-            )
-        )
+        RootTabBarRepresentable()
+                        .edgesIgnoringSafeArea(.all)
     }
 }
 
 #Preview {
     ContentView()
+}
+
+struct RootTabBarRepresentable: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> AppTabBarController {
+        do {
+            var factory = MainSceneConfiguration.tabBarFactory
+            try factory.prepare(with: nil)
+            let tabBarController = try factory.build(with: nil) as! AppTabBarController
+            return tabBarController
+        } catch {
+            fatalError("Failed to build tab bar controller: \(error)")
+        }
+    }
+    
+    func updateUIViewController(_ uiViewController: AppTabBarController, context: Context) {
+        // ...
+    }
 }

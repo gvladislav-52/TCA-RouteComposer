@@ -18,9 +18,8 @@ enum ProfileRouting {
             finder: UIHostingControllerWithContextFinder<ProfileFactory.ContentView>(),
             factory: ProfileFactory()
         )
-        .using(GeneralAction.replaceRoot(animationOptions: .transitionCrossDissolve))
+        .using(GeneralAction.replaceRoot())
         .from(GeneralStep.root())
         .assemble()
         .unsafelyRewrapped()
 }
-

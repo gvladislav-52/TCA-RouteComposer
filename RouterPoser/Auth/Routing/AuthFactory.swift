@@ -17,7 +17,13 @@ struct AuthFactory: Factory {
     typealias Context = Any?
 
     func build(with context: Context = nil) throws -> ViewController {
-        UIHostingController(rootView: build(with: context))
+        let hostingController = UIHostingController(rootView: build(with: context))
+        hostingController.tabBarItem = UITabBarItem(
+            title: "Auth",
+            image: UIImage(systemName: "phone"),
+            selectedImage: UIImage(systemName: "phone.fill")
+        )
+        return hostingController
     }
 
     func build(with context: Context = nil) -> ContentView {
